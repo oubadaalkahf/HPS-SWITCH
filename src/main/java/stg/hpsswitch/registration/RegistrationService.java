@@ -41,10 +41,10 @@ public class RegistrationService {
 		}
 		ResponseEntity<RegistrationResponse> registratedUser = restTemplate.exchange(url, HttpMethod.POST,
 				requestEntity, RegistrationResponse.class);
-		if (registratedUser.getStatusCode() == HttpStatus.OK) {
-			return ResponseHandler.generateResponse("Registrated", HttpStatus.OK, registratedUser.getBody().getData());
+		if (registratedUser.getBody().getData()!=null) {
+			return ResponseHandler.generateResponse(registratedUser.getBody().getMessage(),registratedUser.getStatusCode(), registratedUser.getBody().getData());
 
 		} else
-			return ResponseHandler.generateResponseString("not Registrated", HttpStatus.NOT_ACCEPTABLE);
+			return ResponseHandler.generateResponseString(registratedUser.getBody().getMessage(), registratedUser.getStatusCode());
 	}
 }
